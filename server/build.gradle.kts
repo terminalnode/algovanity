@@ -44,6 +44,7 @@ dependencies {
 	val logbackVersion = "1.2.11"
 
 	// Internals
+	implementation(project(":generator"))
 	implementation(project(":persistence"))
 	implementation(project(":utils"))
 

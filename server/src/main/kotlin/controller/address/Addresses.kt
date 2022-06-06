@@ -1,8 +1,9 @@
 package algo.terminal.algovanity.server.controller.address
 
-import algo.terminal.algovanity.server.model.AddressDto
 import io.ktor.resources.Resource
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
+import model.AlgoAddress
 
 @Serializable
 @Resource("/addresses")
@@ -18,6 +19,6 @@ class Addresses {
 	@Resource("/create")
 	class Create(
 		val parent: Addresses,
-		val request: AddressDto,
+		@Contextual val request: AlgoAddress,
 	)
 }
