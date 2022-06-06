@@ -14,6 +14,7 @@ import kotlin.coroutines.CoroutineContext
 
 class AddressGenerator(
 	private var desiredNumberOfJobs: Int = Runtime.getRuntime().availableProcessors(),
+	autoStart: Boolean = false,
 ) : CoroutineScope {
 	private val logger = createLogger()
 	private val supervisorJob = SupervisorJob()
@@ -24,8 +25,11 @@ class AddressGenerator(
 	override val coroutineContext: CoroutineContext
 		get() = Dispatchers.IO + supervisorJob
 
+	init {
+		if (autoStart) start()
+	}
+
 	fun start() = launch {
-		logger.info("Launching $desiredNumberOfJobs vanity address generators")
 		adjustAddressGenerators()
 	}
 

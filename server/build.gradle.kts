@@ -39,7 +39,6 @@ repositories {
 }
 
 dependencies {
-	val algoSdkVersion = "1.15.0"
 	val ktorVersion = "2.0.2"
 	val logbackVersion = "1.2.11"
 
@@ -63,5 +62,5 @@ dependencies {
 	implementation("org.codehaus.janino:janino:3.1.7")
 
 	// Other
-	implementation("com.algorand:algosdk:$algoSdkVersion")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
 }
