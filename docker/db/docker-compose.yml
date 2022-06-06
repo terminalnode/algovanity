@@ -1,0 +1,12 @@
+version: '3.1'
+services:
+  db:
+    image: postgres:15beta1-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: this_is_root_look_in_initsql_instead
+      POSTGRES_HOST_AUTH_METHOD: password
+    volumes:
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
