@@ -1,4 +1,4 @@
-package algo.terminal.algovanity.server.plugins
+package algo.terminal.algovanity.server.config
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm

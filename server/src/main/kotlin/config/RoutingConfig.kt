@@ -1,4 +1,4 @@
-package algo.terminal.algovanity.server.plugins
+package algo.terminal.algovanity.server.config
 
 import algo.terminal.algovanity.server.controller.address.installAddressController
 import algo.terminal.algovanity.server.controller.admin.installAdminController

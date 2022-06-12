@@ -1,9 +1,9 @@
 package algo.terminal.algovanity.server
 
-import algo.terminal.algovanity.server.plugins.configureDependencyInjection
-import algo.terminal.algovanity.server.plugins.configureHttp
-import algo.terminal.algovanity.server.plugins.configureRouting
-import algo.terminal.algovanity.server.plugins.configureSerialization
+import algo.terminal.algovanity.server.config.configureDependencyInjection
+import algo.terminal.algovanity.server.config.configureHttp
+import algo.terminal.algovanity.server.config.configureRouting
+import algo.terminal.algovanity.server.config.configureSerialization
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 

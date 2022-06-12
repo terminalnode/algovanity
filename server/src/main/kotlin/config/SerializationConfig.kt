@@ -1,4 +1,4 @@
-package algo.terminal.algovanity.server.plugins
+package algo.terminal.algovanity.server.config
 
 import io.ktor.serialization.gson.gson
 import io.ktor.server.application.Application
