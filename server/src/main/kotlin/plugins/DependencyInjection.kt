@@ -1,5 +1,6 @@
 package algo.terminal.algovanity.server.plugins
 
+import algo.terminal.algovanity.server.service.address.addressModule
 import algo.terminal.algovanity.server.service.generator.generatorModule
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
@@ -10,6 +11,7 @@ fun Application.configureDependencyInjection() {
 	install(Koin) {
 		slf4jLogger()
 		modules(
+			addressModule,
 			generatorModule,
 		)
 	}

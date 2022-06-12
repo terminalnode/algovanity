@@ -17,5 +17,5 @@ suspend fun PipelineContext<Unit, ApplicationCall>.setResponse(message: Response
 
 data class ResponseWrapper<T>(
 	@Contextual val data: T,
-	@Contextual val status: HttpStatusCode,
+	@Contextual val status: HttpStatusCode = HttpStatusCode.OK,
 )

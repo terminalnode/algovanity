@@ -24,16 +24,12 @@ fun Routing.installAdminGeneratorRoutes() {
 	get<Admin.Generator.Start> {
 		logger.debug("Received request to start the generator")
 		addressGeneratorService.start()
-		setResponse(
-			ResponseWrapper(data = "Started the address generator service", status = HttpStatusCode.OK)
-		)
+		setResponse(ResponseWrapper(data = "Started the address generator service"))
 	}
 
 	get<Admin.Generator.Stop> {
 		logger.debug("Received request to stop the generator")
 		addressGeneratorService.stop()
-		setResponse(
-			ResponseWrapper(data = "Stopped the address generator service", status = HttpStatusCode.OK)
-		)
+		setResponse(ResponseWrapper(data = "Stopped the address generator service"))
 	}
 }

@@ -2,37 +2,30 @@ package algo.terminal.algovanity.server.controller.address
 
 import algo.terminal.algovanity.server.model.wrapper.ResponseWrapper
 import algo.terminal.algovanity.server.model.wrapper.setResponse
+import algo.terminal.algovanity.server.service.address.AddressService
 import algo.terminal.algovanity.utils.createLogger
-import io.ktor.http.HttpStatusCode
 import io.ktor.server.resources.get
 import io.ktor.server.resources.post
 import io.ktor.server.routing.Routing
+import org.koin.ktor.ext.inject
 
 fun Routing.installAddressController() {
 	val logger = createLogger()
 	logger.info("Installing address controller")
+	val addressService by inject<AddressService>()
 
-	get<Addresses> { query ->
-		// TODO Get all addresses
+	get<Addresses> {
 		logger.debug("Received request to list all addresses")
-		setResponse(
-			ResponseWrapper(data = query, status = HttpStatusCode.NotImplemented)
-		)
+		setResponse(ResponseWrapper(data = addressService.getAll()))
 	}
 
 	get<Addresses.StartsWith> { query ->
-		// TODO Get addresses starting with the provided string
 		logger.debug("Received request to query addresses starting with '${query.query}'")
-		setResponse(
-			ResponseWrapper(data = query, status = HttpStatusCode.NotImplemented)
-		)
+		setResponse(ResponseWrapper(data = addressService.getAllStartingWith(query.query)))
 	}
 
 	post<Addresses.Create> { request ->
-		// TODO Create a new address
 		logger.debug("Received request to create address ${request.request}")
-		setResponse(
-			ResponseWrapper(data = request, status = HttpStatusCode.NotImplemented)
-		)
+		setResponse(ResponseWrapper(data = addressService.persist(request.request)))
 	}
 }
