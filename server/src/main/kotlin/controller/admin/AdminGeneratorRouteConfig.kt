@@ -2,7 +2,7 @@ package algo.terminal.algovanity.server.controller.admin
 
 import algo.terminal.algovanity.server.model.wrapper.ResponseWrapper
 import algo.terminal.algovanity.server.model.wrapper.setResponse
-import algo.terminal.algovanity.server.service.AddressGeneratorService
+import algo.terminal.algovanity.server.service.generator.GeneratorService
 import algo.terminal.algovanity.utils.createLogger
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.resources.get
@@ -12,7 +12,7 @@ import org.koin.ktor.ext.inject
 fun Routing.installAdminGeneratorRoutes() {
 	val logger = createLogger()
 	logger.info("Installing admin generator routes")
-	val addressGeneratorService by inject<AddressGeneratorService>()
+	val addressGeneratorService by inject<GeneratorService>()
 
 	get<Admin.Generator.Status> {
 		logger.debug("Received request for generator status")
