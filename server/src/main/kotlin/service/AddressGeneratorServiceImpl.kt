@@ -6,15 +6,17 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val addressGeneratorModule = module {
-	single { AddressGenerator() }
+	// Starting the address generator is safe as the output channel will fill up and
+	// in effect keep it halted until a consumer of the output is applied.
+	single { AddressGenerator().also { it.start() } }
 	singleOf(::AddressGeneratorServiceImpl) { bind<AddressGeneratorService>() }
 }
 
 interface AddressGeneratorService {
-	/** Start the address generator. */
+	/** Start consuming addresses output by the address generator. */
 	fun start()
 
-	/** Stop the address generator. */
+	/** Stop consuming addresses output by the address generator. */
 	fun stop()
 }
 
@@ -22,7 +24,7 @@ class AddressGeneratorServiceImpl(
 	private val addressGenerator: AddressGenerator,
 ) : AddressGeneratorService {
 	override fun start() {
-		addressGenerator.start()
+		TODO("Start functionality not implemented yet")
 	}
 
 	override fun stop() {

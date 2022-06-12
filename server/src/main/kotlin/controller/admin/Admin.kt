@@ -8,13 +8,17 @@ import kotlinx.serialization.Serializable
 class Admin {
 	@Serializable
 	@Resource("/generator")
-	class Generator {
+	class Generator(val parent: Admin) {
 		@Serializable
-		@Resource("/start")
-		class Start
+		@Resource("/status")
+		class Status(val parent: Generator)
 
 		@Serializable
 		@Resource("/start")
-		class Stop
+		class Start(val parent: Generator)
+
+		@Serializable
+		@Resource("/stop")
+		class Stop(val parent: Generator)
 	}
 }
