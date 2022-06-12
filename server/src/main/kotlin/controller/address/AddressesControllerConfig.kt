@@ -5,12 +5,13 @@ import algo.terminal.algovanity.server.model.wrapper.setResponse
 import algo.terminal.algovanity.utils.createLogger
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.resources.get
+import io.ktor.server.resources.post
 import io.ktor.server.routing.Routing
-import io.ktor.server.routing.post
-
-val logger = createLogger()
 
 fun Routing.installAddressController() {
+	val logger = createLogger()
+	logger.info("Installing address controller")
+
 	get<Addresses> { query ->
 		// TODO Get all addresses
 		logger.debug("Received request to list all addresses")

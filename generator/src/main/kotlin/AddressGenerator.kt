@@ -30,6 +30,7 @@ class AddressGenerator(
 	}
 
 	fun start() = launch {
+		logger.info("Starting address generator")
 		adjustAddressGenerators()
 	}
 
@@ -49,18 +50,20 @@ class AddressGenerator(
 		}
 		currentlyAdjusting = true
 
-		logger.info("Adjusting number of address generators from ${addressGenerators.size} to $desiredNumberOfJobs")
+		logger.info("Adjusting address generators (${addressGenerators.size} / $desiredNumberOfJobs)")
 		while (addressGenerators.size < desiredNumberOfJobs) {
-			logger.debug("Adding message processor...")
+			logger.debug("Adding address generator...")
 			val number = addressGenerators.size + 1
 			addressGenerators.add(startGenerator(number))
 		}
 
 		while (addressGenerators.size > desiredNumberOfJobs) {
-			logger.debug("Removing message processor...")
+			logger.debug("Removing address generator...")
 			addressGenerators.removeLastOrNull()?.cancel()
 		}
-		logger.info("Done adjusting number of address generators")
+		logger.info(
+			"Done adjusting address generators (${addressGenerators.size} / $desiredNumberOfJobs)",
+		)
 
 		currentlyAdjusting = false
 		return GeneratorAdjustmentOutcome.SUCCESS

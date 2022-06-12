@@ -41,6 +41,7 @@ repositories {
 dependencies {
 	val ktorVersion = "2.0.2"
 	val logbackVersion = "1.2.11"
+	val koinVersion = "3.2.0"
 
 	// Internals
 	implementation(project(":generator"))
@@ -56,6 +57,10 @@ dependencies {
 	implementation("io.ktor:ktor-server-auth-jvm:$ktorVersion")
 	implementation("io.ktor:ktor-server-auth-jwt-jvm:$ktorVersion")
 	implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
+
+	// Koin (dependency injection)
+	implementation("io.insert-koin:koin-ktor:$koinVersion")
+	implementation("io.insert-koin:koin-logger-slf4j:$koinVersion")
 
 	// Logging
 	implementation("ch.qos.logback:logback-classic:$logbackVersion")
