@@ -1,3 +1,5 @@
+@file:Suppress("unused") // parents are always unused
+
 package algo.terminal.algovanity.server.controller.admin
 
 import io.ktor.resources.Resource
