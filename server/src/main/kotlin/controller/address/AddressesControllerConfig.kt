@@ -1,8 +1,8 @@
 package algo.terminal.algovanity.server.controller.address
 
-import algo.terminal.algovanity.server.model.wrapper.ResponseWrapper
-import algo.terminal.algovanity.server.model.wrapper.setResponse
 import algo.terminal.algovanity.server.service.address.AddressService
+import algo.terminal.algovanity.server.utils.AlgoAddressResponse
+import algo.terminal.algovanity.server.utils.setResponse
 import algo.terminal.algovanity.utils.createLogger
 import io.ktor.server.resources.get
 import io.ktor.server.resources.post
@@ -16,16 +16,18 @@ fun Routing.installAddressController() {
 
 	get<Addresses> {
 		logger.debug("Received request to list all addresses")
-		setResponse(ResponseWrapper(data = addressService.getAll()))
+		setResponse(AlgoAddressResponse(data = addressService.getAll()))
 	}
 
 	get<Addresses.StartsWith> { query ->
 		logger.debug("Received request to query addresses starting with '${query.query}'")
-		setResponse(ResponseWrapper(data = addressService.getAllStartingWith(query.query)))
+		setResponse(AlgoAddressResponse(data = addressService.getAllStartingWith(query.query)))
 	}
 
 	post<Addresses.Create> { request ->
-		logger.debug("Received request to create address ${request.request}")
-		setResponse(ResponseWrapper(data = addressService.persist(request.request)))
+		logger.debug("Received request to create address $request")
+		val newAddress = request.body
+		addressService.persist(newAddress)
+		setResponse(AlgoAddressResponse(data = listOf(newAddress)))
 	}
 }
