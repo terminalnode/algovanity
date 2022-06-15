@@ -66,6 +66,15 @@ dependencies {
 	implementation("ch.qos.logback:logback-classic:$logbackVersion")
 	implementation("org.codehaus.janino:janino:3.1.7")
 
+	// Persistence
+	val exposedVersion = "0.38.2"
+	implementation("com.zaxxer:HikariCP:5.0.1")
+	implementation("org.postgresql:postgresql:42.4.0")
+	implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+	implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+	implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+	implementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposedVersion")
+
 	// Other
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
 }
