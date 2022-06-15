@@ -1,6 +1,6 @@
 package algo.terminal.algovanity.server.config
 
-import algo.terminal.algovanity.server.controller.address.installAddressController
+import algo.terminal.algovanity.server.controller.accounts.installAccountsController
 import algo.terminal.algovanity.server.controller.admin.installAdminController
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
@@ -12,6 +12,6 @@ fun Application.configureRouting() {
 
 	routing {
 		installAdminController()
-		installAddressController()
+		installAccountsController()
 	}
 }

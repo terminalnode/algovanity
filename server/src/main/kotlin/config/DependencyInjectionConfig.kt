@@ -1,6 +1,6 @@
 package algo.terminal.algovanity.server.config
 
-import algo.terminal.algovanity.server.service.address.addressModule
+import algo.terminal.algovanity.server.service.algoaccount.algoAccountModule
 import algo.terminal.algovanity.server.service.db.dbConnectionModule
 import algo.terminal.algovanity.server.service.generator.generatorModule
 import io.ktor.server.application.Application
@@ -18,7 +18,7 @@ fun Application.configureDependencyInjection() {
 		environmentProperties()
 
 		modules(
-			addressModule,
+			algoAccountModule,
 			dbConnectionModule,
 			generatorModule,
 		)

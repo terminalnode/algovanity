@@ -9,7 +9,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
-import model.AlgoAddress
+import model.AlgoAccount
 import kotlin.coroutines.CoroutineContext
 
 class AddressGenerator(
@@ -20,7 +20,7 @@ class AddressGenerator(
 	private val supervisorJob = SupervisorJob()
 	private val addressGenerators = mutableListOf<Job>()
 	private var currentlyAdjusting = false
-	val output = Channel<AlgoAddress>()
+	val output = Channel<AlgoAccount>()
 
 	override val coroutineContext: CoroutineContext
 		get() = Dispatchers.IO + supervisorJob
@@ -37,7 +37,7 @@ class AddressGenerator(
 	private fun CoroutineScope.startGenerator(number: Int) = launch {
 		repeatUntilCancelled("Vanity address generator #$number") {
 			val address = Account().let {
-				AlgoAddress(address = it.address.toString(), secret = it.toMnemonic())
+				AlgoAccount(address = it.address.toString(), secret = it.toMnemonic())
 			}
 			output.send(address)
 		}

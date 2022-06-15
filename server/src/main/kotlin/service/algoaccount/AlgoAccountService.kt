@@ -1,22 +1,22 @@
-package algo.terminal.algovanity.server.service.address
+package algo.terminal.algovanity.server.service.algoaccount
 
-import model.AlgoAddress
+import model.AlgoAccount
 
-interface AddressService {
+interface AlgoAccountService {
 	/** Persist some addresses to the database. */
-	suspend fun persist(algoAddresses: Collection<AlgoAddress>)
+	suspend fun persist(algoAccounts: Collection<AlgoAccount>)
 
 	/** Get all addresses stored in the database. */
-	suspend fun getAll(): Collection<AlgoAddress>
+	suspend fun getAll(): Collection<AlgoAccount>
 
 	/** Get all addresses stored in the database and starting with the provided [prefix]. */
-	suspend fun getAllStartingWith(prefix: String): Collection<AlgoAddress>
+	suspend fun getAllStartingWith(prefix: String): Collection<AlgoAccount>
 
 	/**
 	 * Delete an address from the database.
 	 * This method of deletion is preferred and requires that the matching secret is provided as well.
 	 */
-	suspend fun delete(algoAddress: AlgoAddress)
+	suspend fun delete(algoAccount: AlgoAccount)
 
 	/**
 	 * Delete an address from the database without providing its secret key.

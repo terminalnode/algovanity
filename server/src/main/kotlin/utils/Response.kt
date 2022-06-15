@@ -3,7 +3,7 @@ package algo.terminal.algovanity.server.utils
 import io.ktor.http.HttpStatusCode
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
-import model.AlgoAddress
+import model.AlgoAccount
 
 interface Response<T> {
 	val data: T
@@ -18,6 +18,6 @@ class StringResponse(
 
 @Serializable
 class AlgoAddressResponse(
-	override val data: Collection<AlgoAddress>,
+	override val data: Collection<AlgoAccount>,
 	@Contextual override val status: HttpStatusCode = HttpStatusCode.OK,
-) : Response<Collection<AlgoAddress>>
+) : Response<Collection<AlgoAccount>>
