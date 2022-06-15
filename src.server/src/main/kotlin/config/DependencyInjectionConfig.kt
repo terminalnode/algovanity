@@ -2,7 +2,7 @@ package algo.terminal.algovanity.server.config
 
 import algo.terminal.algovanity.server.service.algoaccount.algoAccountModule
 import algo.terminal.algovanity.server.service.db.dbConnectionModule
-import algo.terminal.algovanity.server.service.generator.generatorModule
+import algo.terminal.algovanity.server.service.generator.accountGeneratorModule
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import org.koin.environmentProperties
@@ -20,7 +20,7 @@ fun Application.configureDependencyInjection() {
 		modules(
 			algoAccountModule,
 			dbConnectionModule,
-			generatorModule,
+			accountGeneratorModule,
 		)
 	}
 }

@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import model.AlgoAccount
 import kotlin.coroutines.CoroutineContext
 
-class AddressGenerator(
+class AccountGenerator(
 	private var desiredNumberOfJobs: Int = Runtime.getRuntime().availableProcessors(),
 	autoStart: Boolean = false,
 ) : CoroutineScope {

@@ -8,7 +8,7 @@ val logger = createLogger()
 
 suspend fun main() {
 	logger.info("Running AlgoVanity Generator standalone, all addresses will be logged and discarded")
-	val generator = AddressGenerator()
+	val generator = AccountGenerator()
 	generator.start()
 
 	runBlocking {

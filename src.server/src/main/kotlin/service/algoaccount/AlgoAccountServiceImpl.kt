@@ -14,7 +14,7 @@ class AlgoAccountServiceImpl(
 	private val dbConnection: DbConnection,
 ) : AlgoAccountService {
 	override suspend fun persist(
-		algoAccounts: Collection<AlgoAccount>,
+		algoAccounts: Iterable<AlgoAccount>,
 	): Unit = dbConnection.query {
 		AccountTable.batchInsert(algoAccounts, ignore = true) { algoAddress ->
 			this[AccountTable.address] = algoAddress.address

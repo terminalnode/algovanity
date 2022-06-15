@@ -41,7 +41,7 @@ fun Scope.createHikariDataSource(): HikariDataSource {
 		password = getProperty(key = "db.password", defaultValue = "algopassword")
 		maximumPoolSize = getProperty(key = "db.pool-size", defaultValue = 3)
 		isAutoCommit = getProperty(key = "db.auto-commit", defaultValue = false)
-		transactionIsolation = getProperty(key = "transaction-isolation", defaultValue = "TRANSACTION_REPEATABLE_READ")
+		transactionIsolation = getProperty(key = "db.transaction-isolation", defaultValue = "TRANSACTION_REPEATABLE_READ")
 		validate()
 	}.let { HikariDataSource(it) }
 }

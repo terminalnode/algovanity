@@ -1,13 +1,27 @@
 package algo.terminal.algovanity.server.service.generator
 
-import algo.terminal.algovanity.generator.AddressGenerator
-import org.koin.core.module.dsl.bind
-import org.koin.core.module.dsl.singleOf
+import algo.terminal.algovanity.generator.AccountGenerator
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
-val generatorModule = module {
-	// Starting the address generator is safe as the output channel will fill up and
+val accountGeneratorModule = module {
+	// Starting the account generator is safe as the output channel will fill up and
 	// in effect keep it halted until a consumer of the output is applied.
-	single { AddressGenerator().also { it.start() } }
-	singleOf(::GeneratorServiceImpl) { bind<GeneratorService>() }
+	single { AccountGenerator().also { it.start() } }
+
+	single(createdAtStart = true) {
+		val autoStart =
+			when (val autoStartProp = getProperty("generator.auto-start", "false")) {
+				"true" -> true
+				"false" -> false
+				else -> throw IllegalStateException("Failed to parse boolean property generator.auto-start=$autoStartProp")
+			}
+
+		AccountGeneratorServiceImpl(
+			accountGenerator = get(),
+			algoAccountService = get(),
+			batchSize = getProperty("generator.batch-size", 100_000),
+			autoStart = autoStart,
+		)
+	}.bind<AccountGeneratorService>()
 }

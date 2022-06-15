@@ -4,7 +4,7 @@ import model.AlgoAccount
 
 interface AlgoAccountService {
 	/** Persist some addresses to the database. */
-	suspend fun persist(algoAccounts: Collection<AlgoAccount>)
+	suspend fun persist(algoAccounts: Iterable<AlgoAccount>)
 
 	/** Get all addresses stored in the database. */
 	suspend fun getAll(): Collection<AlgoAccount>
