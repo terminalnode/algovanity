@@ -25,6 +25,9 @@ dependencies {
 	implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
+	// Internals
+	implementation(project(":utils"))
+
 	// Exposed
 	val exposedVersion = "0.38.2"
 	implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
