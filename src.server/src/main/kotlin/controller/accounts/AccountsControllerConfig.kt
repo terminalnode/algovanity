@@ -27,7 +27,7 @@ fun Routing.installAccountsController() {
 		setResponse(AlgoAddressResponse(data = algoAccountService.getAllStartingWith(query.query)))
 	}
 
-	post<Accounts.Create> { request ->
+	post<Accounts.Create> {
 		logger.debug("Received request to create accounts")
 		val newAddress = call.receive<CreateAccountsRequest>().accounts
 		algoAccountService.persist(newAddress)
