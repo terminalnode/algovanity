@@ -32,7 +32,7 @@ dependencies {
 	val logbackVersion = "1.2.11"
 
 	// Internals
-	implementation(project(":utils"))
+	implementation(project(":shared"))
 
 	// Other
 	implementation("ch.qos.logback:logback-classic:$logbackVersion")

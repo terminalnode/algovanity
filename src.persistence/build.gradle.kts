@@ -26,7 +26,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
 	// Internals
-	implementation(project(":utils"))
+	implementation(project(":shared"))
 
 	// Exposed
 	val exposedVersion = "0.38.2"

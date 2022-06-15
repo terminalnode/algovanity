@@ -46,7 +46,7 @@ dependencies {
 	// Internals
 	implementation(project(":generator"))
 	implementation(project(":persistence"))
-	implementation(project(":utils"))
+	implementation(project(":shared"))
 
 	// Ktor
 	implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")

@@ -1,7 +1,11 @@
 rootProject.name = "algovanity"
-include(
+
+listOf(
 	"generator",
 	"persistence",
 	"server",
-	"utils",
-)
+	"shared",
+).forEach {
+	include("src.$it")
+	project(":src.$it").name = it
+}
