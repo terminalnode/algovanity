@@ -2,6 +2,7 @@ package algo.terminal.algovanity.server.controller.address
 
 import algo.terminal.algovanity.server.service.address.AddressService
 import algo.terminal.algovanity.server.utils.AlgoAddressResponse
+import algo.terminal.algovanity.server.utils.StringResponse
 import algo.terminal.algovanity.server.utils.setResponse
 import algo.terminal.algovanity.utils.createLogger
 import io.ktor.server.application.call
@@ -9,7 +10,6 @@ import io.ktor.server.request.receive
 import io.ktor.server.resources.get
 import io.ktor.server.resources.post
 import io.ktor.server.routing.Routing
-import model.AlgoAddress
 import org.koin.ktor.ext.inject
 
 fun Routing.installAddressController() {
@@ -29,8 +29,8 @@ fun Routing.installAddressController() {
 
 	post<Addresses.Create> { request ->
 		logger.debug("Received request to create address $request")
-		val newAddress = call.receive<AlgoAddress>()
+		val newAddress = call.receive<CreateAccountsRequest>().accounts
 		addressService.persist(newAddress)
-		setResponse(AlgoAddressResponse(data = listOf(newAddress)))
+		setResponse(StringResponse(data = "Addresses have been saved to the database."))
 	}
 }
