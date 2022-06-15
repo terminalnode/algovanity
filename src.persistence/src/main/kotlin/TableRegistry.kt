@@ -23,7 +23,7 @@ object TableRegistry {
 
 	/** Drop  and recreate all tables in the specified database, or default database if none specified. */
 	fun dropCreateTables(database: Database? = null) {
-		logger.info("Dropping tables in ${database?.url ?: "default database"}")
+		logger.info("Dropping/creating tables in ${database?.url ?: "default database"}")
 		transaction(database) {
 			SchemaUtils.drop(*tables)
 			SchemaUtils.create(*tables)
