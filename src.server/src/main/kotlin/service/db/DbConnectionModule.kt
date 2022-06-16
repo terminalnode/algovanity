@@ -1,9 +1,11 @@
 package algo.terminal.algovanity.server.service.db
 
+import algo.terminal.algovanity.server.utils.ext.getBooleanProperty
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.koin.core.scope.Scope
 import org.koin.dsl.module
+import org.postgresql.ds.PGSimpleDataSource
 
 val dbConnectionModule = module {
 
@@ -21,22 +23,31 @@ val dbConnectionModule = module {
  * Generate the Hikari Data Source
  *
  * Default values
- * db.driver:                org.postgresql.Driver
- * db.url:                   jdbc:postgresql://localhost:5432/algodb
+ * db.data-source:           org.postgresql.ds.PGSimpleDataSource
+ * db.name:                  algodb
  * db.user:                  algouser
  * db.password:              algopassword
  * db.pool-size:             3
  * db.auto-commit:           false
  * db.transaction-isolation: TRANSACTION_REPEATABLE_READ
+ * db.rewrite-batched:       true
  */
 fun Scope.createHikariDataSource(): HikariDataSource {
-	val driver = getPropertyOrNull("db.driver")
-		?: org.postgresql.Driver::class.qualifiedName
-		?: throw IllegalStateException("Failed to get PostgreSQL driver class")
+	val dataSource = getPropertyOrNull("db.data-source")
+		?: org.postgresql.ds.PGSimpleDataSource::class.qualifiedName
+		?: throw IllegalStateException("Failed to get PostgreSQL data source class")
 
 	return HikariConfig().apply {
-		driverClassName = driver
-		jdbcUrl = getProperty(key = "db.url", defaultValue = "jdbc:postgresql://localhost:5432/algodb")
+		// driverClassName = driver
+		dataSourceClassName = dataSource
+		addDataSourceProperty(
+			"databaseName",
+			getProperty(key = "db.name", defaultValue = "algodb"),
+		)
+		addDataSourceProperty(
+			"reWriteBatchedInserts",
+			getBooleanProperty("db.rewrite-batched", true),
+		)
 		username = getProperty(key = "db.user", defaultValue = "algouser")
 		password = getProperty(key = "db.password", defaultValue = "algopassword")
 		maximumPoolSize = getProperty(key = "db.pool-size", defaultValue = 3)

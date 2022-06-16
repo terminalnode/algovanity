@@ -16,7 +16,11 @@ class AlgoAccountServiceImpl(
 	override suspend fun persist(
 		algoAccounts: Iterable<AlgoAccount>,
 	): Unit = dbConnection.query {
-		AccountTable.batchInsert(algoAccounts, ignore = true) { algoAddress ->
+		AccountTable.batchInsert(
+			algoAccounts,
+			ignore = true,
+			shouldReturnGeneratedValues = false,
+		) { algoAddress ->
 			this[AccountTable.address] = algoAddress.address
 			this[AccountTable.secret] = algoAddress.secret
 		}
