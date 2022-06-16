@@ -1,6 +1,7 @@
 package algo.terminal.algovanity.server.service.generator
 
 import algo.terminal.algovanity.generator.AccountGenerator
+import algo.terminal.algovanity.server.utils.ext.getBooleanProperty
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
@@ -10,18 +11,11 @@ val accountGeneratorModule = module {
 	single { AccountGenerator().also { it.start() } }
 
 	single(createdAtStart = true) {
-		val autoStart =
-			when (val autoStartProp = getProperty("generator.auto-start", "false")) {
-				"true" -> true
-				"false" -> false
-				else -> throw IllegalStateException("Failed to parse boolean property generator.auto-start=$autoStartProp")
-			}
-
 		AccountGeneratorServiceImpl(
 			accountGenerator = get(),
 			algoAccountService = get(),
 			batchSize = getProperty("generator.batch-size", 100_000),
-			autoStart = autoStart,
+			autoStart = getBooleanProperty("generator.auto-start", false),
 		)
 	}.bind<AccountGeneratorService>()
 }
