@@ -54,5 +54,8 @@ fun Scope.createHikariDataSource(): HikariDataSource {
 		isAutoCommit = getProperty(key = "db.auto-commit", defaultValue = false)
 		transactionIsolation = getProperty(key = "db.transaction-isolation", defaultValue = "TRANSACTION_REPEATABLE_READ")
 		validate()
-	}.let { HikariDataSource(it) }
+	}.let {
+		it.addDataSourceProperty("reWriteBatchedInserts", true)
+		HikariDataSource(it)
+	}
 }
