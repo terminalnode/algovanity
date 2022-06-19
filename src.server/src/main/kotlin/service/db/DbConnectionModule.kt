@@ -34,11 +34,10 @@ val dbConnectionModule = module {
  */
 fun Scope.createHikariDataSource(): HikariDataSource {
 	val dataSource = getPropertyOrNull("db.data-source")
-		?: org.postgresql.ds.PGSimpleDataSource::class.qualifiedName
+		?: PGSimpleDataSource::class.qualifiedName
 		?: throw IllegalStateException("Failed to get PostgreSQL data source class")
 
 	return HikariConfig().apply {
-		// driverClassName = driver
 		dataSourceClassName = dataSource
 		addDataSourceProperty(
 			"databaseName",

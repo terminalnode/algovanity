@@ -69,6 +69,7 @@ dependencies {
 	// Persistence
 	val exposedVersion = "0.38.2"
 	implementation("com.zaxxer:HikariCP:5.0.1")
+	implementation("org.flywaydb:flyway-core:8.5.13")
 	implementation("org.postgresql:postgresql:42.4.0")
 	implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
 	implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
