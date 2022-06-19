@@ -1,52 +1,41 @@
 package algo.terminal.algovanity.server.service.db
 
-import algo.terminal.algovanity.persistence.TableRegistry
-import algo.terminal.algovanity.server.service.db.DbCreationPolicy.Create
-import algo.terminal.algovanity.server.service.db.DbCreationPolicy.DropCreate
-import algo.terminal.algovanity.server.service.db.DbCreationPolicy.None
 import algo.terminal.algovanity.utils.createLogger
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.Dispatchers
+import org.flywaydb.core.Flyway
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 
-enum class DbCreationPolicy {
-	Create,
-	DropCreate,
-	None,
-	;
-
-	companion object {
-		fun fromProperty(property: String) = when (property.lowercase()) {
-			Create.toString().lowercase() -> Create
-			DropCreate.toString().lowercase() -> DropCreate
-			None.toString().lowercase() -> None
-			else -> throw IllegalStateException("Invalid DbCreationPolicy: $property")
-		}
-	}
-}
-
 class DbConnectionImpl(
-	hikariDataSource: HikariDataSource,
+	private val hikariDataSource: HikariDataSource,
 	dbCreationPolicy: DbCreationPolicy,
 ) : DbConnection {
 	private val logger = createLogger()
 
 	init {
 		logger.info("Initializing database connection")
-		val db = Database.connect(hikariDataSource)
-		createTables(db, dbCreationPolicy)
-	}
 
-	private fun createTables(
-		db: Database,
-		dbCreationPolicy: DbCreationPolicy,
-	): Unit = when (dbCreationPolicy) {
-		Create -> TableRegistry.createTables(db)
-		DropCreate -> { TableRegistry.dropCreateTables(db) }
-		None -> { /* do nothing */ }
+		// Migrations
+		runMigrations(false)
+
+		// Connect exposed
+		Database.connect(hikariDataSource)
 	}
 
 	override suspend fun <T> query(block: suspend () -> T): T =
 		newSuspendedTransaction(Dispatchers.IO) { block() }
+
+	private fun configureFlyway(withBaseLineMigration: Boolean) =
+		Flyway.configure()
+			.dataSource(hikariDataSource)
+			.baselineOnMigrate(withBaseLineMigration)
+			.load()
+
+	private fun runMigrations(clean: Boolean) {
+		// TODO baseline should be true only on first run or, possibly, in non-live environments
+		val flyway = configureFlyway(withBaseLineMigration = !clean)
+		if (clean) flyway.clean()
+		flyway.migrate()
+	}
 }

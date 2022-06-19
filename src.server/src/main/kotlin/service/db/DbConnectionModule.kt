@@ -34,11 +34,10 @@ val dbConnectionModule = module {
  */
 fun Scope.createHikariDataSource(): HikariDataSource {
 	val dataSource = getPropertyOrNull("db.data-source")
-		?: org.postgresql.ds.PGSimpleDataSource::class.qualifiedName
+		?: PGSimpleDataSource::class.qualifiedName
 		?: throw IllegalStateException("Failed to get PostgreSQL data source class")
 
 	return HikariConfig().apply {
-		// driverClassName = driver
 		dataSourceClassName = dataSource
 		addDataSourceProperty(
 			"databaseName",
@@ -54,8 +53,5 @@ fun Scope.createHikariDataSource(): HikariDataSource {
 		isAutoCommit = getProperty(key = "db.auto-commit", defaultValue = false)
 		transactionIsolation = getProperty(key = "db.transaction-isolation", defaultValue = "TRANSACTION_REPEATABLE_READ")
 		validate()
-	}.let {
-		it.addDataSourceProperty("reWriteBatchedInserts", true)
-		HikariDataSource(it)
-	}
+	}.let { HikariDataSource(it) }
 }
